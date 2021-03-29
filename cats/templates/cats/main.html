@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="dj4e" content="257deb66f5366aab34a23d5fd0571da4">
+    <name="dj4e-code" content="42161540818026"></name>
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base_bootstrap.html' %}
+    {% block content %}
+    {% if breed_list %}
+            <table border="2">
+            <tr>
+            <th>Nickname</th>
+            <th>Breed</th>
+            <th>Weight</th>
+            <th>Food</th>
+            <th>Option</th>
+
+            </tr>
+        {% for cat in cat_list %}
+            <tr>
+                <td>{{ cat.nickname }}</td>
+                <td>{{ cat.breed }}</td>
+                <td>{{ cat.weight }}</td>
+                <td>{{ cat.foods }}</td>
+                <td>
+                    <a href="{% url 'cats:update_cat' cat.id %}">Update ¦</a>
+                    <a href="{% url 'cats:delete_cat' cat.id %}">Delete </a>
+                
+                </td>
+            
+        {% endfor %}
+            </tr>
+        </table>
+        <a href="{% url 'cats:create_breed' %}">Add a breed</a>
+        <a href="{% url 'cats:create_cat' %}">Add a cat</a>
+        <a href="{% url 'cats:breed_list' %}">View breeds</a>
+        <a href="{% url 'cats:cat_list' %}">View cats</a>
+
+    {% else %}
+        <p>The library is empty.</p>
+        <p>You must add the cat breed first</p>
+        <a href="{% url 'cats:create_breed' %}">Create Your First Breed</a>
+    {% endif %}
+    <pre>
+        <a href="{% url 'logout' %}?next={% url 'cats:main' %}">Logout</a>
+    </pre>
+    {% endblock %}
+</body>
+</html>
